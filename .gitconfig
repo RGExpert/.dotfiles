@@ -1,0 +1,9 @@
+[user]
+	email = r.goina2002@gmail.com
+	name = RG
+[pull]
+	rebase = true
+[diff]
+	tool = nvimdiff
+[core]
+	editor = nvim
