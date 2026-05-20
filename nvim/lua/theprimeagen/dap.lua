@@ -33,7 +33,7 @@ dap.adapters.python = function(cb, config)
         cb({
             type = 'executable',
             command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
-            args = { '-m', 'debugpy.adapter' },
+            args = { '-Xfrozen_modules=off', '-m', 'debugpy.adapter' },
             options = {
                 source_filetype = 'python',
             },
@@ -95,6 +95,22 @@ dap.configurations.python = {
                 return '/usr/bin/python'
             end
         end;
+
+        justMyCode = false,
+        subProcess = false,
+        redirectOutput = false,
+
+        -- prevents debugpy from lying about threads
+        singleThread = true,
+
+        -- forces the old stable engine instead of the broken DAP-native one
+        legacyDebugAdapter = true,
+
+        -- prevents massive GIL stalls
+        maxFrames = 50,
+
+        -- makes attach/launch race-free
+        stopOnEntry = false,
     },
 }
 

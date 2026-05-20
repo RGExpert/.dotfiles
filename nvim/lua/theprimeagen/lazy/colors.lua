@@ -43,7 +43,6 @@ return {
                 dim_inactive = false,
                 transparent_mode = false,
             })
-        --ColorMyPencils("gruvbox")
         end,
     },
 
@@ -57,7 +56,6 @@ return {
         lazy = false,
         opts = {},
         config = function()
-            ColorMyPencils()
         end
     },
     {

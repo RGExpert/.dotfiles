@@ -29,6 +29,7 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "clangd",
+                "ts_ls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -77,8 +78,52 @@ return {
                         root_dir = lspconfig.util.root_pattern("compile_commands.json", ".git"),
                     })
                 end,
+
+                ["vue_ls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.vue_ls.setup({
+                        capabilities = capabilities,
+                    })
+                end,
+
+                ["ts_ls"] = function()
+                    vim.notify("ts_ls handler called!", vim.log.levels.INFO)
+                    local lspconfig = require("lspconfig")
+                    lspconfig.ts_ls.setup({
+                        capabilities = capabilities,
+                        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+                        init_options = {
+                            plugins = {
+                                {
+                                    name = "@vue/typescript-plugin",
+                                    location = "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+                                    languages = { "vue" },
+                                },
+                            },
+                        },
+                    })
+                end,
             }
         })
+
+        vim.lsp.config('ts_ls', {
+            filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+            init_options = {
+                plugins = {
+                    {
+                        name = "@vue/typescript-plugin",
+                        location = "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+                        languages = { "vue" },
+                    },
+                },
+            },
+        })
+        vim.lsp.enable('ts_ls')
+        vim.lsp.config('vue_ls', {
+            filetypes = { "vue" },
+        })
+        vim.lsp.enable('vue_ls')
+
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -113,4 +158,6 @@ return {
                 prefix = "",
             },
         })
-    end}
+    end
+
+}

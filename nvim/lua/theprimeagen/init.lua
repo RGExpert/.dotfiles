@@ -97,3 +97,16 @@ autocmd('LspAttach', {
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+vim.g.clipboard = {
+  name = "win32yank",
+  copy = {
+    ["+"] = "/usr/local/bin/win32yank.exe -i --crlf",
+    ["*"] = "/usr/local/bin/win32yank.exe -i --crlf",
+  },
+  paste = {
+    ["+"] = "/usr/local/bin/win32yank.exe -o --lf",
+    ["*"] = "/usr/local/bin/win32yank.exe -o --lf",
+  },
+  cache_enabled = 0,
+}
+
