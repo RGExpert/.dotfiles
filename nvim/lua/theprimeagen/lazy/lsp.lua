@@ -52,7 +52,6 @@ return {
                     })
                     vim.g.zig_fmt_parse_errors = 0
                     vim.g.zig_fmt_autosave = 0
-
                 end,
 
                 ["lua_ls"] = function()
@@ -96,7 +95,8 @@ return {
                             plugins = {
                                 {
                                     name = "@vue/typescript-plugin",
-                                    location = "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+                                    location =
+                                    "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
                                     languages = { "vue" },
                                 },
                             },
@@ -112,7 +112,8 @@ return {
                 plugins = {
                     {
                         name = "@vue/typescript-plugin",
-                        location = "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
+                        location =
+                        "/home/radug/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin",
                         languages = { "vue" },
                     },
                 },
@@ -143,8 +144,8 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                    { name = 'buffer' },
-                })
+                { name = 'buffer' },
+            })
         })
 
         vim.diagnostic.config({
