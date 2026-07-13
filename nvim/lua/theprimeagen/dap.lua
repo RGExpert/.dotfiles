@@ -114,6 +114,27 @@ dap.configurations.python = {
     },
 }
 
+dap.configurations.rust = {
+    {
+        name = "Cargo build + launch (codelldb)",
+        type = "codelldb",
+        request = "launch",
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        sourceLanguages = { "rust" },
+        program = function()
+            vim.fn.system("cargo build")
+            local metadata = vim.fn.system("cargo metadata --no-deps --format-version 1")
+            local ok, decoded = pcall(vim.fn.json_decode, metadata)
+            if ok and decoded and decoded.packages and decoded.packages[1] then
+                local name = decoded.packages[1].name
+                return vim.fn.getcwd() .. "/target/debug/" .. name
+            end
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+        end,
+    },
+}
+
 vim.keymap.set('n', '<F5>', function() dap.continue() end)
 vim.keymap.set('n', '<F6>', function() dap.step_over() end)
 vim.keymap.set('n', '<F7>', function() dap.step_into() end)
