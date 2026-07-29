@@ -97,16 +97,20 @@ autocmd('LspAttach', {
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-vim.g.clipboard = {
-  name = "win32yank",
-  copy = {
-    ["+"] = "/usr/local/bin/win32yank.exe -i --crlf",
-    ["*"] = "/usr/local/bin/win32yank.exe -i --crlf",
-  },
-  paste = {
-    ["+"] = "/usr/local/bin/win32yank.exe -o --lf",
-    ["*"] = "/usr/local/bin/win32yank.exe -o --lf",
-  },
-  cache_enabled = 0,
-}
 
+-- WSL has no native clipboard integration, so bridge it through win32yank.
+-- On a regular Linux box neovim's own providers (wl-copy/xclip) work fine.
+if vim.fn.has("wsl") == 1 and vim.fn.executable("/usr/local/bin/win32yank.exe") == 1 then
+    vim.g.clipboard = {
+        name = "win32yank",
+        copy = {
+            ["+"] = "/usr/local/bin/win32yank.exe -i --crlf",
+            ["*"] = "/usr/local/bin/win32yank.exe -i --crlf",
+        },
+        paste = {
+            ["+"] = "/usr/local/bin/win32yank.exe -o --lf",
+            ["*"] = "/usr/local/bin/win32yank.exe -o --lf",
+        },
+        cache_enabled = 0,
+    }
+end
