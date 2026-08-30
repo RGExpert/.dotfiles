@@ -1,6 +1,6 @@
 
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- <leader>pv opens oil.nvim (see lua/theprimeagen/lazy/oil.lua)
 vim.keymap.set("n", "<leader>tq", function()
     vim.diagnostic.setqflist()
 end, { desc = "Diagnostics → quickfix" })
